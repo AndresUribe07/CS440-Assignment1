@@ -1,5 +1,9 @@
+from vertex import Vertex
+
+
+# TODO: Check what to store weights as (float, double)
 class Edge:
-    def __init__(self, v1, v2, weight):
+    def __init__(self, v1: Vertex, v2: Vertex, weight: Vertex):
         self.v1 = v1
         self.v2 = v2
         self.weight = weight
