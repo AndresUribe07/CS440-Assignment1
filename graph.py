@@ -1,5 +1,4 @@
 import tkinter as tk
-from turtle import goto
 
 root = tk.Tk()
 root.configure(background="black")
