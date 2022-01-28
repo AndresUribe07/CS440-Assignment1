@@ -5,8 +5,7 @@ class Edge:
         self.weight = weight
 
     def __eq__(self, other):
-        if isinstance(other, Edge):
-            return (self.v1 == other.v1) & (self.v2 == other.v2) & (self.weight == other.weight)
+        pass
 
 
 if __name__ == '__main__':

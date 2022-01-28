@@ -4,8 +4,7 @@ class Vertex:
         self.y = y
 
     def __eq__(self, o: object) -> bool:
-        if isinstance(o, Vertex):
-            return self.x == o.x & self.y == o.y
+        pass
 
 
 if __name__ == '__main__':
