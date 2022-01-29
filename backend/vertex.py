@@ -6,8 +6,13 @@ class Vertex:
     def __eq__(self, o: object) -> bool:
         pass
 
+    def __str__(self):
+        return f'({self.x}, {self.y})'
+
+    def __repr__(self):
+        return f'({self.x}, {self.y})'
 
 if __name__ == '__main__':
     v1 = Vertex(0, 1)
     v2 = Vertex(1, 1)
-    print(v1 == v2)
+    print(v1)
