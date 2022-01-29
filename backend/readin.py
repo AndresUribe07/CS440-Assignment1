@@ -25,8 +25,8 @@ def generate_outer_edges(rows: int, cols: int, g: Graph) -> None:
     @return: None
     """
     # Generates all horizontal edges
-    for i in range(1, rows + 1):
-        for j in range(1, cols + 2):
+    for i in range(1, cols + 1):
+        for j in range(1, rows + 1):
             fromV = str(j) + str(i)
             toV = str(j + 1) + str(i)
             g.addEdge(fromV, toV, 1)
@@ -93,5 +93,5 @@ def read_in_graph(filename: str):
 
 
 if __name__ == '__main__':
-    g = read_in_graph('tests/smallgridtest.txt')
-    print("success")
+    g = read_in_graph('tests/fourcellgridtest.txt')
+    print(f'Vertices: {g.size}')
