@@ -26,5 +26,8 @@ class Vertex:
     def __repr__(self):
         return self.key
 
+    def __hash__(self):
+        return hash(repr(self))
+
 if __name__ == '__main__':
     pass
