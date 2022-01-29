@@ -86,12 +86,16 @@ def read_in_graph(filename: str):
         generate_vertices(grid_dimensions[0], grid_dimensions[1], g)
         generate_outer_edges(grid_dimensions[0], grid_dimensions[1], g)
 
-        # TODO handle add diagonal edges to cell
+        for line in f:
+            line = line.strip()
+            tokens = line.split(" ")
+            if tokens[2] == 0:
+                add_diagonal_edges(str(tokens[0]) + str(tokens[1]), g)
 
     f.close()
     return g
 
 
 if __name__ == '__main__':
-    g = read_in_graph('tests/fourcellgridtest.txt')
+    g = read_in_graph('tests/test.txt')
     print(f'Vertices: {g.size}')
