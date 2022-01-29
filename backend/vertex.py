@@ -1,18 +1,30 @@
 class Vertex:
-    def __init__(self, x: int, y: int):
-        self.x = x
-        self.y = y
 
+    def __init__(self, key):  # keys should be strings representing the coordinate Ex: (0,0) is entered as "00"
+        self.key = key
+        self.neighbors = {}  # vertex: weight
+
+    def addNeighbor(self, neighbor, weight):
+        self.neighbors[neighbor] = weight
+
+    def getNeighbors(self):
+        return self.neighbors.keys()
+
+    def getKey(self):
+        return self.key
+
+    def getWeight(self, neighbor):
+        return self.neighbors[neighbor]
+
+    # TODO test this
     def __eq__(self, o: object) -> bool:
-        pass
+        return self.key == o.key
 
     def __str__(self):
-        return f'({self.x}, {self.y})'
+        return self.key
 
     def __repr__(self):
-        return f'({self.x}, {self.y})'
+        return self.key
 
 if __name__ == '__main__':
-    v1 = Vertex(0, 1)
-    v2 = Vertex(1, 1)
-    print(v1)
+    pass

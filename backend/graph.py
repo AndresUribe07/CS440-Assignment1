@@ -1,40 +1,42 @@
 from vertex import Vertex
-from collections import defaultdict
-
 
 class Graph:
-    def __init__(self, vertices: list, edges: list):
-        self.vertices = vertices
-        self.edges = edges
-
     def __init__(self):
-        self.vertices = []
-        self.edges = defaultdict(list)  # (x,y): [neighbors]
+        self.vertices = {}
+        self.size = 0
 
-    def add_vertex(self, x: int, y: int) -> None:
-        """
-        Given the x and y value of a vertex add it to the graph
-        @param x:
-        @param y:
-        @return:
-        """
-        pass
+    def addVertex(self, key):
+        self.size += 1
+        temp = Vertex(key)
+        self.vertices[key] = temp
+        return temp
 
-    def add_vertices(self, vertices_list: list):
-        """
-        Given a list of vertices, append all vertices to the self.vertices list
-        @param vertices_list:
-        @return: None
-        """
-        self.vertices.extend(vertices_list)
+    def getVertex(self, key) -> Vertex:
+        if key in self.vertices:
+            return self.vertices[key]
+        else:
+            return None
 
-    # TODO check if edges need to be saved as doubles and how to get a double in python
-    def add_edge(self, v1: Vertex, v2: Vertex, weight) -> None:
-        """
-        Given two vertices and an edge weight add an edge to a graph
-        @param v1:
-        @param v2:
-        @param weight:
-        @return:
-        """
-        pass
+    def addEdge(self, startV, endV, weight):
+        if startV not in self.vertices:
+            self.addVertex(startV)
+        if endV not in self.vertices:
+            self.addVertex(endV)
+
+        self.vertices[startV].addNeighbor(self.vertices[endV], weight)
+
+    def getVertices(self):
+        return self.vertices.keys()
+
+    def __iter__(self):
+        return iter(self.vertices.values())
+
+    def __contains__(self, item):
+        if item in self.vertices:
+            return True
+        else:
+            return False
+
+
+if __name__ == '__main__':
+    g = Graph()
