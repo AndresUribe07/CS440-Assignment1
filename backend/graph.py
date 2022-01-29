@@ -18,12 +18,20 @@ class Graph:
             return None
 
     def addEdge(self, startV, endV, weight):
+        """
+        Adds undirected edges so edges are placed from both vertices
+        @param startV:
+        @param endV:
+        @param weight:
+        @return:
+        """
         if startV not in self.vertices:
             self.addVertex(startV)
         if endV not in self.vertices:
             self.addVertex(endV)
 
         self.vertices[startV].addNeighbor(self.vertices[endV], weight)
+        self.vertices[endV].addNeighbor(self.vertices[startV], weight)
 
     def getVertices(self):
         return self.vertices.keys()
