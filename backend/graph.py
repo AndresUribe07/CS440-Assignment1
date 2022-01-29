@@ -17,7 +17,7 @@ class Graph:
         else:
             return None
 
-    def addEdge(self, startV, endV, weight):
+    def addEdge(self, startV, endV, weight):  # takes keys not vertex objects
         """
         Adds undirected edges so edges are placed from both vertices
         @param startV:
