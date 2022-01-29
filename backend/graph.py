@@ -1,5 +1,5 @@
 from vertex import Vertex
-from edge import Edge
+from collections import defaultdict
 
 
 class Graph:
@@ -9,7 +9,7 @@ class Graph:
 
     def __init__(self):
         self.vertices = []
-        self.edges = []
+        self.edges = defaultdict(list)  # (x,y): [neighbors]
 
     def add_vertex(self, x: int, y: int) -> None:
         """

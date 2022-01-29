@@ -36,6 +36,10 @@ def read_in_graph(filename: str):
         # Generate vertices
         new_vertices = generate_vertices(grid_dimensions[0], grid_dimensions[1])
         g.add_vertices(new_vertices)
+
+        # TODO Find a way to generate outside edges programmatically
+        # TODO Any benefit in representing vertices as a matrix instead of a list?
+
     f.close()
     return g
 
