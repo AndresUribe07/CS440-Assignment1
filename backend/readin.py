@@ -14,7 +14,7 @@ def generate_vertices(rows: int, cols: int, g: Graph) -> None:
     """
     for i in range(1, rows + 2):
         for j in range(1, cols + 2):
-            g.addVertex(Vertex.buildCellKey(i, j))
+            g.addVertex(Vertex.buildVertexKey(i, j))
 
 
 def generate_outer_edges(rows: int, cols: int, g: Graph) -> None:
@@ -28,16 +28,16 @@ def generate_outer_edges(rows: int, cols: int, g: Graph) -> None:
     # Generates all horizontal edges
     for i in range(1, cols + 1):
         for j in range(1, rows + 1):
-            fromV = Vertex.buildCellKey(j, i)
-            toV = Vertex.buildCellKey(j + 1, i)
+            fromV = Vertex.buildVertexKey(j, i)
+            toV = Vertex.buildVertexKey(j + 1, i)
             g.addEdge(fromV, toV, 1)
             # print(f'({j},{i}) -- ({j + 1},{i})')
 
     # Generates all vertical edges
     for x in range(1, rows + 2):
         for y in range(1, cols + 1):
-            fromV = Vertex.buildCellKey(x, y)
-            toV = Vertex.buildCellKey(x, y + 1)
+            fromV = Vertex.buildVertexKey(x, y)
+            toV = Vertex.buildVertexKey(x, y + 1)
             g.addEdge(fromV, toV, 1)
             # print(f'({x},{y}) -- ({x},{y + 1})')
 

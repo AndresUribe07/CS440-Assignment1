@@ -5,7 +5,7 @@ class Vertex:
         self.neighbors = {}  # vertex: weight
 
     @classmethod
-    def buildCellKey(cls, x: int, y: int):
+    def buildVertexKey(cls, x: int, y: int):
         return str(x) + "|" + str(y)
 
     def addNeighbor(self, neighbor, weight):
