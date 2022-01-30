@@ -99,7 +99,6 @@ def read_in_graph(filename: str):
 
 
 # TODO adjust blocking of cells so that outer edges of blocked cells are removed
-# TODO refactor representation of Vertex key
 
 if __name__ == '__main__':
     g = read_in_graph('tests/test.txt')
