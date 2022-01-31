@@ -3,6 +3,10 @@ class Vertex:
     def __init__(self, key):  # keys should be strings representing the coordinate Ex: (0,0) is entered as "0|0"
         self.key = key
         self.neighbors = {}  # vertex: weight
+        self.g = 0
+        self.h = 0
+        self.f = 0
+        self.parent = None
 
     @classmethod
     def buildVertexKey(cls, x: int, y: int):
@@ -39,6 +43,10 @@ class Vertex:
 
     def __hash__(self):
         return hash(repr(self))
+    
+    def __lt__(self,other):
+        print("Used __lt__ function.")
+        return self.f < other.f
 
 if __name__ == '__main__':
     pass
