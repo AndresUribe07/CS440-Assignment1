@@ -1,5 +1,6 @@
 from graph import Graph
 import math as m
+from vertex import Vertex
 
 
 def generate_vertices(rows: int, cols: int, g: Graph) -> None:
@@ -13,7 +14,7 @@ def generate_vertices(rows: int, cols: int, g: Graph) -> None:
     """
     for i in range(1, rows + 2):
         for j in range(1, cols + 2):
-            g.addVertex(str(i) + str(j))
+            g.addVertex(Vertex.buildVertexKey(i, j))
 
 
 def generate_outer_edges(rows: int, cols: int, g: Graph) -> None:
@@ -27,16 +28,16 @@ def generate_outer_edges(rows: int, cols: int, g: Graph) -> None:
     # Generates all horizontal edges
     for i in range(1, cols + 1):
         for j in range(1, rows + 1):
-            fromV = str(j) + str(i)
-            toV = str(j + 1) + str(i)
+            fromV = Vertex.buildVertexKey(j, i)
+            toV = Vertex.buildVertexKey(j + 1, i)
             g.addEdge(fromV, toV, 1)
             # print(f'({j},{i}) -- ({j + 1},{i})')
 
     # Generates all vertical edges
     for x in range(1, rows + 2):
         for y in range(1, cols + 1):
-            fromV = str(x) + str(y)
-            toV = str(x) + str(y + 1)
+            fromV = Vertex.buildVertexKey(x, y)
+            toV = Vertex.buildVertexKey(x, y + 1)
             g.addEdge(fromV, toV, 1)
             # print(f'({x},{y}) -- ({x},{y + 1})')
 
@@ -49,15 +50,16 @@ def add_diagonal_edges(cell_key: str, g: Graph) -> None:
     @param g:
     @return: None
     """
-    x = int(cell_key[0])
-    y = int(cell_key[1])
+    cell_tokens = cell_key.split("|")
+    x = int(cell_tokens[0])
+    y = int(cell_tokens[1])
     fromV = cell_key
-    toV = str(x + 1) + str(y + 1)
+    toV = str(x + 1) + "|" + str(y + 1)
 
     g.addEdge(fromV, toV, m.sqrt(2))
 
-    fromV = str(x + 1) + cell_key[1]
-    toV = cell_key[0] + str(y + 1)
+    fromV = str(x + 1) + "|" + cell_tokens[1]
+    toV = cell_tokens[0] + "|" + str(y + 1)
 
     g.addEdge(fromV, toV, m.sqrt(2))
 
@@ -86,12 +88,18 @@ def read_in_graph(filename: str):
         generate_vertices(grid_dimensions[0], grid_dimensions[1], g)
         generate_outer_edges(grid_dimensions[0], grid_dimensions[1], g)
 
-        # TODO handle add diagonal edges to cell
+        for line in f:
+            line = line.strip()
+            tokens = line.split(" ")
+            if tokens[2] == 0:
+                add_diagonal_edges(str(tokens[0]) + "|" + str(tokens[1]), g)
 
     f.close()
     return g
 
 
+# TODO adjust blocking of cells so that outer edges of blocked cells are removed
+
 if __name__ == '__main__':
-    g = read_in_graph('tests/fourcellgridtest.txt')
+    g = read_in_graph('tests/test.txt')
     print(f'Vertices: {g.size}')
