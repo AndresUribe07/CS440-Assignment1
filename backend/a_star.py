@@ -12,6 +12,9 @@ def main():
 
     test_graph = readin.read_in_graph("tests/test.txt")
 
+
+    #TODO: create graph
+
     start_vertex = Vertex("0|0")
     goal_vertex = Vertex("0|0")
 
@@ -25,11 +28,16 @@ def main():
                 if line_num == 0:
                     start_vertex = Vertex(vertex_key)
                     # print(f"start vertex key is: {start_vertex.getKey()}")
-                else:
+                elif line_num == 1:
                     goal_vertex = Vertex(vertex_key)
                     # print(f"goal vertex key is: {goal_vertex.getKey()}")
+                # Add vertex to graph    
+                else: 
+                    print()
+                    
                 line_num += 1
 
+    
 
     # Make fringe a minheap
     heapq.heapify(fringe)
@@ -72,6 +80,10 @@ def removeVertexFromFringe(vertex: Vertex):
     fringe[vertex_idx] = fringe[-1]
     heapq.heappop()
     heapq.heapify(fringe)
+
+def dist(v1: Vertex, v2: Vertex):
+    return v1.getWeight(v2)
+
     
 if __name__ == "__main__":
     main()
