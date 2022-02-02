@@ -1,3 +1,5 @@
+import math
+
 from graph import Graph
 import math as m
 from vertex import Vertex
@@ -19,6 +21,7 @@ def generate_vertices(rows: int, cols: int, g: Graph) -> None:
 
 def generate_outer_edges(rows: int, cols: int, g: Graph) -> None:
     """
+    DEPRECIATED
     Generates outer straight edges does NOT generate inner diagonals
     @param rows:
     @param cols:
@@ -44,6 +47,7 @@ def generate_outer_edges(rows: int, cols: int, g: Graph) -> None:
 
 def add_diagonal_edges(cell_key: str, g: Graph) -> None:
     """
+    DEPRECIATED
     Given the key for the left-topmost vertex in a cell,
     add both diagonals for the cell
     @param cell_key: a str cell key in the format 'xy'
@@ -64,6 +68,19 @@ def add_diagonal_edges(cell_key: str, g: Graph) -> None:
     g.addEdge(fromV, toV, m.sqrt(2))
 
 
+def unblock_cell(cell_key: str, g: Graph):
+    v1 = g.getVertex(cell_key)
+
+    x = v1.getKeyCoordinates()[0]
+    y = v1.getKeyCoordinates()[1]
+
+    g.addEdge(cell_key, Vertex.buildVertexKey(x + 1, y), 1.0)
+    g.addEdge(cell_key, Vertex.buildVertexKey(x, y + 1), 1.0)
+    g.addEdge(cell_key, Vertex.buildVertexKey(x + 1, y + 1), math.sqrt(2))
+    g.addEdge(Vertex.buildVertexKey(x + 1, y), Vertex.buildVertexKey(x, y + 1), math.sqrt(2))
+    g.addEdge(Vertex.buildVertexKey(x + 1, y), Vertex.buildVertexKey(x + 1, y + 1), 1.0)
+    g.addEdge(Vertex.buildVertexKey(x, y + 1), Vertex.buildVertexKey(x + 1, y + 1), 1.0)
+
 def read_in_graph(filename: str):
     start_node = tuple()
     goal_node = tuple()
@@ -74,11 +91,13 @@ def read_in_graph(filename: str):
         # Read start and goal node coords into a tuple
         line = f.readline().strip()
         tokens = line.split(" ")
-        start_node = (int(tokens[0]), int(tokens[1]))
+        start_node = Vertex.buildVertexKey(int(tokens[0], int(tokens[1])))
+        g.start_node_key = start_node
 
         line = f.readline().strip()
         tokens = line.split(" ")
-        goal_node = (int(tokens[0]), int(tokens[1]))
+        goal_node = Vertex.buildVertexKey(int(tokens[0], int(tokens[1])))
+        g.goal_node_key = goal_node
 
         # Read grid dimensions into a tuple
         line = f.readline().strip()
@@ -86,20 +105,24 @@ def read_in_graph(filename: str):
         grid_dimensions = (int(tokens[0]), int(tokens[1]))
 
         generate_vertices(grid_dimensions[0], grid_dimensions[1], g)
-        generate_outer_edges(grid_dimensions[0], grid_dimensions[1], g)
+        # generate_outer_edges(grid_dimensions[0], grid_dimensions[1], g)
 
         for line in f:
             line = line.strip()
             tokens = line.split(" ")
             if tokens[2] == 0:
-                add_diagonal_edges(str(tokens[0]) + "|" + str(tokens[1]), g)
+                # add_diagonal_edges(str(tokens[0]) + "|" + str(tokens[1]), g)
+                unblock_cell(Vertex.buildVertexKey(tokens[0], tokens[1]), g)
 
     f.close()
     return g
 
 
-# TODO adjust blocking of cells so that outer edges of blocked cells are removed
-
 if __name__ == '__main__':
-    g = read_in_graph('tests/test.txt')
-    print(f'Vertices: {g.size}')
+    g = Graph()
+    g.addVertex("1|1")
+    g.addVertex("2|1")
+    g.addVertex("1|2")
+    g.addVertex("2|2")
+
+    unblock_cell("1|1", g)
