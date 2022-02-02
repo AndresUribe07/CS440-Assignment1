@@ -4,8 +4,6 @@ import os
 import shutil
 import readin
 from graph import Graph
-from vertex import Vertex
-import queue
 
 COLS = 4
 ROWS = 2
@@ -114,4 +112,4 @@ def h(s: tuple, g: tuple):
 
 
 if __name__ == '__main__':
-    generate_tests(5)
+    generate_tests(10)

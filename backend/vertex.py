@@ -5,6 +5,7 @@ class Vertex:
         self.neighbors = {}  # vertex: weight
         self.g = None
         self.h = None
+        self.f = None
 
     @classmethod
     def buildVertexKey(cls, x: int, y: int):
