@@ -91,12 +91,12 @@ def read_in_graph(filename: str):
         # Read start and goal node coords into a tuple
         line = f.readline().strip()
         tokens = line.split(" ")
-        start_node = Vertex.buildVertexKey(int(tokens[0], int(tokens[1])))
+        start_node = Vertex.buildVertexKey(int(tokens[0]), int(tokens[1]))
         g.start_node_key = start_node
 
         line = f.readline().strip()
         tokens = line.split(" ")
-        goal_node = Vertex.buildVertexKey(int(tokens[0], int(tokens[1])))
+        goal_node = Vertex.buildVertexKey(int(tokens[0]), int(tokens[1]))
         g.goal_node_key = goal_node
 
         # Read grid dimensions into a tuple
@@ -110,9 +110,9 @@ def read_in_graph(filename: str):
         for line in f:
             line = line.strip()
             tokens = line.split(" ")
-            if tokens[2] == 0:
+            if tokens[2] == '0':
                 # add_diagonal_edges(str(tokens[0]) + "|" + str(tokens[1]), g)
-                unblock_cell(Vertex.buildVertexKey(tokens[0], tokens[1]), g)
+                unblock_cell(Vertex.buildVertexKey(int(tokens[0]), int(tokens[1])), g)
 
     f.close()
     return g
@@ -126,3 +126,4 @@ if __name__ == '__main__':
     g.addVertex("2|2")
 
     unblock_cell("1|1", g)
+    print("Complete")
