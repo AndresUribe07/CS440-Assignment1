@@ -119,11 +119,7 @@ def read_in_graph(filename: str):
 
 
 if __name__ == '__main__':
-    g = Graph()
-    g.addVertex("1|1")
-    g.addVertex("2|1")
-    g.addVertex("1|2")
-    g.addVertex("2|2")
-
-    unblock_cell("1|1", g)
-    print("Complete")
+    g = read_in_graph("automated_tests/test0")
+    v = g.getVertex("1|1")
+    neighbors = v.getNeighbors()
+    print(neighbors)

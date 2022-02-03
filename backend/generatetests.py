@@ -106,10 +106,11 @@ def generate_vertices_dict(r: int, c: int) -> dict:
 
     return vertices
 
+
 def h(s: tuple, g: tuple):
     return math.sqrt(2) * min(abs(s[0] - g[0]), abs(s[1] - g[1])) + max(abs(s[0] - g[0]), abs(s[1] - g[1])) - min(
         abs(s[0] - g[0]), abs(s[1] - g[1]))
 
 
 if __name__ == '__main__':
-    generate_tests(10)
+    generate_tests(1)
