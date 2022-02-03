@@ -21,6 +21,15 @@ class Vertex:
     def getKey(self):
         return self.key
 
+    def getHval(self):
+        return self.h
+
+    def getGval(self):
+        return self.g
+
+    def getFval(self):
+        return self.f
+
     def getWeight(self, neighbor):
         return self.neighbors[neighbor]
 

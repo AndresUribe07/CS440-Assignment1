@@ -1,4 +1,3 @@
-from asyncore import read
 import readin
 import heapq
 import math
@@ -10,17 +9,23 @@ closed_list = []
 
 def main():
 
-    test_graph = readin.read_in_graph("tests/test.txt")
+    test_graph = readin.read_in_graph("backend/tests/test.txt")
 
+    # Add neighbors for each vertex 
+    for vertex in test_graph:
+        print(f"vertex is: {vertex}")
+        print(f"vertex key is: {vertex.getKey()}")
+        print(f"vertex F-value is: {vertex.getFval()}, vertex G-value is: {vertex.getGval()}, vertex H-value is: {vertex.getHval()}")
+        print(f"vertex neighbors are: {vertex.getNeighbors()}") 
+        print("----------------")
 
-    #TODO: create graph
 
     start_vertex = Vertex("0|0")
     goal_vertex = Vertex("0|0")
 
     ### GET START AND END VERTICES 
     line_num = 0    
-    with open("tests/test.txt", "r") as text_file:
+    with open("backend/tests/test.txt", "r") as text_file:
         for line in text_file:
             if line_num < 2:
                 curr_line = line.strip()
@@ -29,16 +34,11 @@ def main():
                     start_vertex = Vertex(vertex_key)
                     # print(f"start vertex key is: {start_vertex.getKey()}")
                 elif line_num == 1:
-                    goal_vertex = Vertex(vertex_key)
-                    # print(f"goal vertex key is: {goal_vertex.getKey()}")
-                # Add vertex to graph    
-                else: 
-                    print()
-                    
+                    goal_vertex = Vertex(vertex_key)   
                 line_num += 1
 
+    number: int = 5
     
-
     # Make fringe a minheap
     heapq.heapify(fringe)
 
@@ -46,8 +46,8 @@ def main():
     heapq.heappush(fringe,start_vertex)
 
     # Loop while the fringe isn't empty
-    while len(fringe) > 0:
-        curr_vertex = heapq.heappop(fringe)
+    while len(fringe) > 0:   ## check if it's greater or equal to zero
+        curr_vertex:Vertex = heapq.heappop(fringe)
         if(curr_vertex == goal_vertex):
             print('Found goal node!')
             return
@@ -83,6 +83,17 @@ def removeVertexFromFringe(vertex: Vertex):
 
 def dist(v1: Vertex, v2: Vertex):
     return v1.getWeight(v2)
+
+# def calculateHval():
+
+# def calculateGvalue():
+#     # 1) start at node n
+#     # 2) iterate through parents adding edge costs,
+#     ###  loop condition:
+
+
+# def calculateFvalue():
+
 
     
 if __name__ == "__main__":
