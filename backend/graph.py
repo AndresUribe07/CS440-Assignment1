@@ -4,6 +4,8 @@ class Graph:
     def __init__(self):
         self.vertices = {}
         self.size = 0
+        self.start_node_key = ""
+        self.goal_node_key = ""
 
     def addVertex(self, key):
         self.size += 1
@@ -17,7 +19,7 @@ class Graph:
         else:
             return None
 
-    def addEdge(self, startV, endV, weight):  # takes keys not vertex objects
+    def addEdge(self, startV: str, endV: str, weight):  # takes keys not vertex objects
         """
         Adds undirected edges so edges are placed from both vertices
         @param startV:
