@@ -31,8 +31,8 @@ class Display:
         goal_x *= 100
         goal_y *= 100
 
-        circle(start_x, start_y, canvas_name) #to indicate the start and goal nodes
-        circle(goal_x, goal_y, canvas_name) #this is filled, so it goes before the other filled circles
+        points(start_x, start_y, canvas_name, "start", "red", 8) #to indicate the start and goal nodes
+        points(goal_x, goal_y, canvas_name, "goal", "red", 8) #this is filled, so it goes before the other filled circles
 
         for vertex in graph: #goes through vertices
 
@@ -46,7 +46,7 @@ class Display:
                 x_neigh, y_neigh = Vertex.getKeyCoordinates(neighbor)
                 x_neigh *= 100
                 y_neigh *= 100
-                points_and_lines(x, y, x_neigh, y_neigh, canvas_name, vertex)
+                points_and_lines(x, y, x_neigh, y_neigh, canvas_name)
 
         return
 
