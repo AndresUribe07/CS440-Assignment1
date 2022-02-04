@@ -9,7 +9,7 @@ class Display:
 
     root = Tk()
     root.title = ("Click on vertices for info")
-    canvas_name = Canvas(root, width=1000, height=1000) #dimenisons of canvas should be sized better than this, will look @ later
+    canvas_name = Canvas(root, width=1000, height=1000) #dimenisons of canvas should be sized better than this
     canvas_name.configure(bg="white")
     canvas_name.pack(fill="x", expand=True)
 
@@ -21,11 +21,23 @@ class Display:
     #calls methods to draw
         graph = self.graph
         canvas_name = self.canvas_name
+        start_vertex = graph.getVertex(graph.start_node_key)
+        goal_vertex = graph.getVertex(graph.goal_node_key)
+
+        start_x, start_y = Vertex.getKeyCoordinates(start_vertex)
+        start_x *= 100
+        start_y *= 100
+        goal_x, goal_y = Vertex.getKeyCoordinates(goal_vertex)
+        goal_x *= 100
+        goal_y *= 100
+
+        circle(start_x, start_y, canvas_name) #to indicate the start and goal nodes
+        circle(goal_x, goal_y, canvas_name) #this is filled, so it goes before the other filled circles
 
         for vertex in graph: #goes through vertices
 
             x, y = Vertex.getKeyCoordinates(vertex)
-            x *= 100 #scale the coordinates up so that they're visible on the canvas
+            x *= 100
             y *= 100
             current_neighbors = vertex.getNeighbors()
 
@@ -50,8 +62,8 @@ class Display:
             radius = 5 #must be the same as the radius used in the points method under the draw file; that's how big it appears on screen
 
             if 100*vertex_x in range(x - radius, x + radius) and 100*vertex_y in range(y - radius, y + radius):
-            #if clicked coordinates are in the drawn vertex's range (multiply by 100 because coordinates were scaled up; dividing by 100 gets messy)
-                info = "vertex g: " + str(vertex.g) + " vertex h: " + str(vertex.h) + " vertex coordinates: " + str(vertex) #coordinates not necessary (?), might be helpful when there aren't defined h, g, etc values
+            #if clicked coordinates are in the drawn vertex's range
+                info = "This vertex's coordinates are " + str(vertex) + ", its g-value is " + str(vertex.g) + ", its h-value is " + str(vertex.h) + ", and its f-value is " + str(vertex.f)
                 break
             else: #it's not going to reach this part
                 info = "click on vertex, not line or blank space"
