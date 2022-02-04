@@ -51,7 +51,7 @@ class Display:
 
             if 100*vertex_x in range(x - radius, x + radius) and 100*vertex_y in range(y - radius, y + radius):
             #if clicked coordinates are in the drawn vertex's range (multiply by 100 because coordinates were scaled up; dividing by 100 gets messy)
-                info = "vertex g: " + str(vertex.g) + " vertex h: " + str(vertex.h)
+                info = "vertex g: " + str(vertex.g) + " vertex h: " + str(vertex.h) + " vertex coordinates: " + str(vertex) #coordinates not necessary (?), might be helpful when there aren't defined h, g, etc values
                 break
             else: #it's not going to reach this part
                 info = "click on vertex, not line or blank space"
