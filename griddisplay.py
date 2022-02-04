@@ -47,12 +47,10 @@ class Display:
 
         for vertex in self.graph:
             vertex_x, vertex_y = Vertex.getKeyCoordinates(vertex)
-            vertex_x = vertex_x/100 #the coordinates have been scaled up
-            vertex_y = vertex_y/100
             radius = 5 #must be the same as the radius used in the points method under the draw file; that's how big it appears on screen
 
-            if vertex_x in range(x - radius, x + radius) and vertex_y in range(y - radius, y + radius):
-            #if clicked coordinates are in the drawn vertex's range
+            if 100*vertex_x in range(x - radius, x + radius) and 100*vertex_y in range(y - radius, y + radius):
+            #if clicked coordinates are in the drawn vertex's range (multiply by 100 because coordinates were scaled up; dividing by 100 gets messy)
                 info = "vertex g: " + str(vertex.g) + " vertex h: " + str(vertex.h)
                 break
             else: #it's not going to reach this part
