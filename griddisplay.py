@@ -25,11 +25,15 @@ class Display:
         for vertex in graph: #goes through vertices
 
             x, y = Vertex.getKeyCoordinates(vertex)
+            x *= 100 #scale the coordinates up so that they're visible on the canvas
+            y *= 100
             current_neighbors = vertex.getNeighbors()
 
             for neighbor in current_neighbors:  #goes through a vertex's neighbors
             #PROBLEM: it will re-draw stuff
                 x_neigh, y_neigh = Vertex.getKeyCoordinates(neighbor)
+                x_neigh *= 100
+                y_neigh *= 100
                 points_and_lines(x, y, x_neigh, y_neigh, canvas_name, vertex)
 
         return
@@ -43,6 +47,8 @@ class Display:
 
         for vertex in self.graph:
             vertex_x, vertex_y = Vertex.getKeyCoordinates(vertex)
+            vertex_x = vertex_x/100 #the coordinates have been scaled up
+            vertex_y = vertex_y/100
             radius = 5 #must be the same as the radius used in the points method under the draw file; that's how big it appears on screen
 
             if vertex_x in range(x - radius, x + radius) and vertex_y in range(y - radius, y + radius):
