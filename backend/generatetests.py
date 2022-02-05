@@ -6,7 +6,7 @@ import readin
 from graph import Graph
 
 COLS = 4
-ROWS = 2
+ROWS = 3
 PERCENT_BLOCKED = 0.10
 DIRNAME_FOR_SAVE = "automated_tests"
 
@@ -113,4 +113,4 @@ def h(s: tuple, g: tuple):
 
 
 if __name__ == '__main__':
-    generate_tests(1)
+    generate_tests(5)
