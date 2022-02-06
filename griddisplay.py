@@ -40,13 +40,15 @@ class Display:
             x *= 100
             y *= 100
             current_neighbors = vertex.getNeighbors()
-
-            for neighbor in current_neighbors:  #goes through a vertex's neighbors
-            #PROBLEM: it will re-draw stuff
-                x_neigh, y_neigh = Vertex.getKeyCoordinates(neighbor)
-                x_neigh *= 100
-                y_neigh *= 100
-                points_and_lines(x, y, x_neigh, y_neigh, canvas_name)
+            points(x, y, canvas_name, "vertex", "black", 5) #for a graph with vertices and no edges
+            
+            if len(current_neighbors) != 0: #if there are edges
+                for neighbor in current_neighbors:  #goes through a vertex's neighbors
+                #PROBLEM: it will re-draw stuff
+                    x_neigh, y_neigh = Vertex.getKeyCoordinates(neighbor)
+                    x_neigh *= 100
+                    y_neigh *= 100
+                    points_and_lines(x, y, x_neigh, y_neigh, canvas_name)
 
         return
 
