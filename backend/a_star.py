@@ -14,7 +14,8 @@ def main():
     test_graph = readin.read_in_graph("automated_tests/test0")
 
     ### GET START AND END VERTICES 
-    line_num = 0    
+    line_num = 0
+    exit_flag = False    
     with open("automated_tests/test0", "r") as text_file:
         for line in text_file:
             if line_num < 2:
@@ -29,8 +30,12 @@ def main():
                     # Get the goal vertex
                     for v in test_graph:
                         if v.getKey() == vertex_key:
-                            goal_vertex = v   
-                line_num += 1
+                            goal_vertex = v
+                            exit_flag = True
+                            break 
+                line_num += 1    
+            if exit_flag == True:
+                break
 
     # Make fringe a minheap
     heapq.heapify(fringe)
