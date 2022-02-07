@@ -21,3 +21,35 @@ def points_and_lines(x1, y1, x2, y2, canvas_name):
     points(x1, y1, canvas_name, "vertex", "black", 5)
     points(x2, y2, canvas_name, "vertex", "black", 5)
     return
+
+
+def split_coordinates(string):
+#same as the method "getKeyCoordinates" in the Vertex class. however, that works with vertices, this is for when A*/theta* pass list of strings (coordinates)
+    x_coord = ""
+    y_coord = ""
+    is_x = True
+    char_coords = [char for char in string]
+
+    for c in char_coords:
+        if c == '|':
+            is_x = False
+            #y_coord += c
+        elif is_x:
+            x_coord += c
+        else:
+            y_coord += c
+
+    coord_list = [int(x_coord), int(y_coord)]
+    return coord_list
+
+
+def draw_path(path_list, canvas_name, fill):
+#can be called on list of coordinates that A* or Theta* return. Pass it the list, a Display object's canvas, and preferred fill color
+    for coordinate in range(0, len(path_list) - 1):
+        x1, y1 = split_coordinates(path_list[coordinate])
+        x2, y2 = split_coordinates(path_list[coordinate + 1])
+        x1 *= 100
+        y1 *= 100
+        x2 *= 100
+        y2 *= 100
+        lines(x1, y1, x2, y2, canvas_name, fill)
