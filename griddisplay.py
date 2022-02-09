@@ -7,15 +7,33 @@ from draw import *
 
 class Display:
 
-    root = Tk()
-    root.title = ("Click on vertices for info")
-    canvas_name = Canvas(root, width=1000, height=1000) #dimenisons of canvas should be sized better than this
-    canvas_name.configure(bg="white")
-    canvas_name.pack(fill="x", expand=True)
+    #root = Tk()
+    #root.title = ("Click on vertices for info")
+    #canvas_name = Canvas(root, width=1000, height=1000) #dimenisons of canvas should be sized better than this
+    #canvas_name.configure(bg="white")
+    #canvas_name.pack(fill="x", expand=True)
 
     def __init__(self, graph):
     #given graph object, sort of does canvas and root on its own
         self.graph = graph
+
+        self.root = Tk()
+        self.frame = Frame(self.root, width=500, height=500)
+        self.frame.pack(expand=True, fill=BOTH)
+
+        self.canvas_name = Canvas(self.frame, bg="white", width=500, height=500, scrollregion=(0, 0, 5000, 5000))
+
+        self.scroll_y = Scrollbar(self.frame, orient=VERTICAL)
+        self.scroll_y.pack(side=RIGHT, fill=Y)
+        self.scroll_y.configure(command=self.canvas_name.yview)
+
+        self.scroll_x = Scrollbar(self.frame, orient=HORIZONTAL)
+        self.scroll_x.pack(side=BOTTOM, fill=X)
+        self.scroll_x.configure(command=self.canvas_name.xview)
+
+        self.canvas_name.configure(width=500, height=500)
+        self.canvas_name.configure(xscrollcommand=self.scroll_x.set, yscrollcommand=self.scroll_y.set)
+        self.canvas_name.pack(side=LEFT, expand=True, fill=BOTH)
 
     def coordinate_producer(self):
     #calls methods to draw
@@ -40,8 +58,8 @@ class Display:
             x *= 100
             y *= 100
             current_neighbors = vertex.getNeighbors()
-            points(x, y, canvas_name, "vertex", "black", 5) #for a graph with vertices and no edges
-            
+            points(x, y, canvas_name, "vertex", "black", 5) #for a graph with vertices, but no edges
+
             if len(current_neighbors) != 0: #if there are edges
                 for neighbor in current_neighbors:  #goes through a vertex's neighbors
                 #PROBLEM: it will re-draw stuff
