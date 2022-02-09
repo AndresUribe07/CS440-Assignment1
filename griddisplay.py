@@ -13,9 +13,11 @@ class Display:
     #canvas_name.configure(bg="white")
     #canvas_name.pack(fill="x", expand=True)
 
-    def __init__(self, graph):
+    def __init__(self, graph, scale, vertex_radius):
     #given graph object, sort of does canvas and root on its own
         self.graph = graph
+        self.scale = scale
+        self.vertex_radius = vertex_radius
 
         self.root = Tk()
         self.frame = Frame(self.root, width=500, height=500)
@@ -43,30 +45,30 @@ class Display:
         goal_vertex = graph.getVertex(graph.goal_node_key)
 
         start_x, start_y = Vertex.getKeyCoordinates(start_vertex)
-        start_x *= 50
-        start_y *= 50
+        start_x *= self.scale
+        start_y *= self.scale
         goal_x, goal_y = Vertex.getKeyCoordinates(goal_vertex)
-        goal_x *= 50
-        goal_y *= 50
+        goal_x *= self.scale
+        goal_y *= self.scale
 
-        points(start_x, start_y, canvas_name, "start", "red", 10) #to indicate the start and goal nodes
-        points(goal_x, goal_y, canvas_name, "goal", "red", 10) #this is filled, so it goes before the other filled circles
+        points(start_x, start_y, self.canvas_name, self.vertex_radius+3, "start", "red") #to indicate the start and goal nodes
+        points(goal_x, goal_y, self.canvas_name, self.vertex_radius+3, "goal", "red") #this is filled, so it goes before the other filled circles
 
         for vertex in graph: #goes through vertices
 
             x, y = Vertex.getKeyCoordinates(vertex)
-            x *= 50
-            y *= 50
+            x *= self.scale
+            y *= self.scale
             current_neighbors = vertex.getNeighbors()
-            points(x, y, canvas_name, "vertex", "black", 7) #for a graph with vertices, but no edges
+            points(x, y, self.canvas_name, self.vertex_radius, "vertex", "black") #for a graph with vertices, but no edges
 
             if len(current_neighbors) != 0: #if there are edges
                 for neighbor in current_neighbors:  #goes through a vertex's neighbors
                 #PROBLEM: it will re-draw stuff
                     x_neigh, y_neigh = Vertex.getKeyCoordinates(neighbor)
-                    x_neigh *= 50
-                    y_neigh *= 50
-                    points_and_lines(x, y, x_neigh, y_neigh, canvas_name)
+                    x_neigh *= self.scale
+                    y_neigh *= self.scale
+                    points_and_lines(x, y, x_neigh, y_neigh, self)
 
         return
 
@@ -80,9 +82,8 @@ class Display:
 
         for vertex in self.graph:
             vertex_x, vertex_y = Vertex.getKeyCoordinates(vertex)
-            radius = 5 #must be the same as the radius used in the points method under the draw file; that's how big it appears on screen
 
-            if 50*vertex_x in range(int(x - radius), int(x + radius)) and 50*vertex_y in range(int(y - radius), int(y + radius)):
+            if self.scale*vertex_x in range(int(x - self.vertex_radius), int(x + self.vertex_radius)) and self.scale*vertex_y in range(int(y - self.vertex_radius), int(y + self.vertex_radius)):
             #if clicked coordinates are in the drawn vertex's range
                 info = "This vertex's coordinates are " + str(vertex) + ", its g-value is " + str(vertex.g) + ", its h-value is " + str(vertex.h) + ", and its f-value is " + str(vertex.f)
                 break
