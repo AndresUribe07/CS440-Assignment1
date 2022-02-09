@@ -6,6 +6,7 @@ class Vertex:
         self.g = None
         self.h = None
         self.f = None
+        self.parent = None
 
     @classmethod
     def buildVertexKey(cls, x: int, y: int):
@@ -15,7 +16,8 @@ class Vertex:
         self.neighbors[neighbor] = weight
 
     def getNeighbors(self):
-        return self.neighbors.keys()
+        # return self.neighbors.keys()
+        return list(self.neighbors.keys())
 
     def getKey(self):
         return self.key
@@ -31,6 +33,14 @@ class Vertex:
         key_tokens = self.key.split("|")
         return (int(key_tokens[0]), int(key_tokens[1]))
 
+    def setG(self, val):
+        self.g = val
+        self.f = self.g + self.h
+
+    def setH(self, val):
+        self.h = val
+        self.f = self.g + self.h
+
     def __eq__(self, o: object) -> bool:
         return self.key == o.key
 
@@ -42,6 +52,10 @@ class Vertex:
 
     def __hash__(self):
         return hash(repr(self))
+
+    def __lt__(self, other):
+        return self.f < other.f
+
 
 if __name__ == '__main__':
     pass
