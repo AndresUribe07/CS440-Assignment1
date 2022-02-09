@@ -303,6 +303,8 @@ def cellIsBlocked(x: int,y: int):
                             return False
                 line_num += 1
         return False
+    
+    ### Add cases for xcoord of length 3
 
 if __name__ == "__main__":
     main()
