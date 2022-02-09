@@ -18,8 +18,8 @@ def lines(x1, y1, x2, y2, canvas_name, fill):
 def points_and_lines(x1, y1, x2, y2, canvas_name):
 #Given 2 vertices and a canvas name, draws all points and lines between the two vertices
     lines(x1, y1, x2, y2, canvas_name, "black")
-    points(x1, y1, canvas_name, "vertex", "black", 5)
-    points(x2, y2, canvas_name, "vertex", "black", 5)
+    #points(x1, y1, canvas_name, "vertex", "black", 7)
+    points(x2, y2, canvas_name, "vertex", "black", 7)
     return
 
 
@@ -48,8 +48,8 @@ def draw_path(path_list, canvas_name, fill):
     for coordinate in range(0, len(path_list) - 1):
         x1, y1 = split_coordinates(path_list[coordinate])
         x2, y2 = split_coordinates(path_list[coordinate + 1])
-        x1 *= 100
-        y1 *= 100
-        x2 *= 100
-        y2 *= 100
+        x1 *= 50
+        y1 *= 50
+        x2 *= 50
+        y2 *= 50
         lines(x1, y1, x2, y2, canvas_name, fill)
