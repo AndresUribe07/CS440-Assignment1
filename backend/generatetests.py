@@ -5,8 +5,8 @@ import shutil
 import readin
 from graph import Graph
 
-COLS = 4
-ROWS = 3
+COLS = 100
+ROWS = 50
 PERCENT_BLOCKED = 0.10
 DIRNAME_FOR_SAVE = "automated_tests"
 
