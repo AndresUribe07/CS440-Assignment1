@@ -110,6 +110,10 @@ def read_in_graph(filename: str):
         for line in f:
             line = line.strip()
             tokens = line.split(" ")
+
+            vertex_key = Vertex.buildVertexKey(int(tokens[0], int(tokens[1])))
+            g.cell_status[vertex_key] = int(tokens[2])
+
             if tokens[2] == '0':
                 # add_diagonal_edges(str(tokens[0]) + "|" + str(tokens[1]), g)
                 unblock_cell(Vertex.buildVertexKey(int(tokens[0]), int(tokens[1])), g)

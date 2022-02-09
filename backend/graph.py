@@ -6,6 +6,7 @@ class Graph:
         self.size = 0
         self.start_node_key = ""
         self.goal_node_key = ""
+        self.cell_status = {}  # key: str, val: int
 
     def addVertex(self, key):
         self.size += 1
