@@ -47,7 +47,6 @@ def main():
     while len(fringe) > 0:
         curr_vertex:Vertex = heapq.heappop(fringe)
         if(curr_vertex == goal_vertex):
-            print('Found goal node!')
             shortest_path = []
             while(curr_vertex.getParent() is not None):
                 if(curr_vertex == start_vertex):
@@ -55,8 +54,7 @@ def main():
                 shortest_path.append(curr_vertex)
                 curr_vertex = curr_vertex.getParent()
             shortest_path.append(start_vertex)
-            print(f"Shortest path is: {shortest_path[::-1]}")
-            return
+            return shortest_path[::-1]
         closed_list.append(curr_vertex)
         for successor in curr_vertex.getNeighbors():
             if (successor not in closed_list):
@@ -95,4 +93,4 @@ def h(start_node: Vertex, goal_node: Vertex):
         abs(s[0] - g[0]), abs(s[1] - g[1]))
     
 if __name__ == "__main__":
-    main()
+   print(main())
