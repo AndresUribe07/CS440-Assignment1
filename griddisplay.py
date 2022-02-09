@@ -73,15 +73,16 @@ class Display:
 
     def display_info(self, event):
     #Uses the mouse click location to determine which vertex + print appropriate info
-        x = event.x
-        y = event.y
+        canvas = event.widget
+        x = canvas.canvasx(event.x)
+        y = canvas.canvasy(event.y)
         info = ""
 
         for vertex in self.graph:
             vertex_x, vertex_y = Vertex.getKeyCoordinates(vertex)
-            radius = 7 #must be the same as the radius used in the points method under the draw file; that's how big it appears on screen
+            radius = 5 #must be the same as the radius used in the points method under the draw file; that's how big it appears on screen
 
-            if 50*vertex_x in range(x - radius, x + radius) and 50*vertex_y in range(y - radius, y + radius):
+            if 50*vertex_x in range(int(x - radius), int(x + radius)) and 50*vertex_y in range(int(y - radius), int(y + radius)):
             #if clicked coordinates are in the drawn vertex's range
                 info = "This vertex's coordinates are " + str(vertex) + ", its g-value is " + str(vertex.g) + ", its h-value is " + str(vertex.h) + ", and its f-value is " + str(vertex.f)
                 break
