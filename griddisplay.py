@@ -21,7 +21,7 @@ class Display:
         self.frame = Frame(self.root, width=500, height=500)
         self.frame.pack(expand=True, fill=BOTH)
 
-        self.canvas_name = Canvas(self.frame, bg="white", width=500, height=500, scrollregion=(0, 0, 5000, 5000))
+        self.canvas_name = Canvas(self.frame, bg="white", width=500, height=500, scrollregion=(0, 0, 250000, 250000))
 
         self.scroll_y = Scrollbar(self.frame, orient=VERTICAL)
         self.scroll_y.pack(side=RIGHT, fill=Y)
@@ -43,29 +43,29 @@ class Display:
         goal_vertex = graph.getVertex(graph.goal_node_key)
 
         start_x, start_y = Vertex.getKeyCoordinates(start_vertex)
-        start_x *= 100
-        start_y *= 100
+        start_x *= 50
+        start_y *= 50
         goal_x, goal_y = Vertex.getKeyCoordinates(goal_vertex)
-        goal_x *= 100
-        goal_y *= 100
+        goal_x *= 50
+        goal_y *= 50
 
-        points(start_x, start_y, canvas_name, "start", "red", 8) #to indicate the start and goal nodes
-        points(goal_x, goal_y, canvas_name, "goal", "red", 8) #this is filled, so it goes before the other filled circles
+        points(start_x, start_y, canvas_name, "start", "red", 10) #to indicate the start and goal nodes
+        points(goal_x, goal_y, canvas_name, "goal", "red", 10) #this is filled, so it goes before the other filled circles
 
         for vertex in graph: #goes through vertices
 
             x, y = Vertex.getKeyCoordinates(vertex)
-            x *= 100
-            y *= 100
+            x *= 50
+            y *= 50
             current_neighbors = vertex.getNeighbors()
-            points(x, y, canvas_name, "vertex", "black", 5) #for a graph with vertices, but no edges
+            points(x, y, canvas_name, "vertex", "black", 7) #for a graph with vertices, but no edges
 
             if len(current_neighbors) != 0: #if there are edges
                 for neighbor in current_neighbors:  #goes through a vertex's neighbors
                 #PROBLEM: it will re-draw stuff
                     x_neigh, y_neigh = Vertex.getKeyCoordinates(neighbor)
-                    x_neigh *= 100
-                    y_neigh *= 100
+                    x_neigh *= 50
+                    y_neigh *= 50
                     points_and_lines(x, y, x_neigh, y_neigh, canvas_name)
 
         return
@@ -79,9 +79,9 @@ class Display:
 
         for vertex in self.graph:
             vertex_x, vertex_y = Vertex.getKeyCoordinates(vertex)
-            radius = 5 #must be the same as the radius used in the points method under the draw file; that's how big it appears on screen
+            radius = 7 #must be the same as the radius used in the points method under the draw file; that's how big it appears on screen
 
-            if 100*vertex_x in range(x - radius, x + radius) and 100*vertex_y in range(y - radius, y + radius):
+            if 50*vertex_x in range(x - radius, x + radius) and 50*vertex_y in range(y - radius, y + radius):
             #if clicked coordinates are in the drawn vertex's range
                 info = "This vertex's coordinates are " + str(vertex) + ", its g-value is " + str(vertex.g) + ", its h-value is " + str(vertex.h) + ", and its f-value is " + str(vertex.f)
                 break
